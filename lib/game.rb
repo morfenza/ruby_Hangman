@@ -13,6 +13,7 @@ class Game
   def initialize
     @word = pick_word
     @spaces = create_spaces(@word)
+    @guesses = []
   end
 
   def pick_word
@@ -35,15 +36,26 @@ class Game
     end
   end
 
-  def play_round
-    letter = gets.chomp
-    insert_letter(letter) if letter?(letter, @word)
-  end
-
   def play_match
-    until won?(@spaces, @word)
+    tries = 6
+    until tries.zero?
+      p @guesses
       p @spaces
-      play_round
+      display_hang(tries)
+      p tries
+      letter = gets.chomp
+      if letter?(letter, @word)
+        insert_letter(letter)
+        won?(@spaces, @word)
+      else
+        @guesses << letter unless @guesses.include?(letter)
+        tries -= 1
+      end
+      Gem.win_platform? ? (system 'cls') : (system 'clear')
     end
+    display_hang(tries)
   end
 end
+
+g = Game.new
+g.play_match
