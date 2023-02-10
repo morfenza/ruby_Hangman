@@ -48,7 +48,7 @@ module HangedPerson
         +---+
         |   |
         O   |
-       /|\  |
+       /|\\  |
             |
             |
       =========
@@ -58,7 +58,7 @@ module HangedPerson
         +---+
         |   |
         O   |
-       /|\  |
+       /|\\  |
        /    |
             |
       =========
@@ -68,8 +68,8 @@ module HangedPerson
         +---+
         |   |
         O   |
-       /|\  |
-       / \  |
+       /|\\  |
+       / \\  |
             |
       =========
     HEREDOC
