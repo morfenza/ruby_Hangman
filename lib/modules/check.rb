@@ -2,7 +2,11 @@
 
 # Module to check win condition and other conditions needed
 module Check
-  def won?
-    guess.eql?(word)
+  def won?(spaces, word)
+    spaces.eql?(word)
+  end
+
+  def letter?(letter, word)
+    word.include?(letter)
   end
 end
