@@ -2,7 +2,6 @@
 
 # Class defining the game
 class Game
-
 end
 
 def pick_word
@@ -15,3 +14,14 @@ def create_spaces(word)
   Array.new(word.size, ' ')
 end
 
+def insert_letter(letter, spaces, word)
+  return unless word.include?(letter)
+
+  spaces.map!.with_index do |space, index|
+    if word[index].eql?(letter)
+      letter
+    else
+      space
+    end
+  end
+end
