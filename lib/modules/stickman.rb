@@ -2,7 +2,8 @@
 
 # Module to display the (poor) hanged person :(
 module HangedPerson
-  @@hangedperson.freeze = {
+  # rubocop:disable Style/ClassVars
+  @@hangedperson = {
     6 => <<~HEREDOC,
         +---+
         |   |
@@ -72,7 +73,8 @@ module HangedPerson
             |
       =========
     HEREDOC
-  }
+  }.freeze
+  # rubocop:enable Style/ClassVars
 
   def display_hang(tries)
     puts @@hangedperson[tries]
