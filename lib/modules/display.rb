@@ -32,14 +32,17 @@ module Display
 
   def display_logo
     puts <<~LOGO
-       _
-      | |
-      | |__   __ _ _ __   __ _ _ __ ___   __ _ _ __
-      | '_ \\ / _` | '_ \\ / _` | '_ ` _ \\ / _` | '_ \
-      | | | | (_| | | | | (_| | | | | | | (_| | | | |
-      |_| |_|\\__,_|_| |_|\\__, |_| |_| |_|\\__,_|_| |_|
-                          __/ |
-                         |___/
+
+    88
+    88
+    88
+    88,dPPYba,  ,adPPYYba, 8b,dPPYba,   ,adPPYb,d8 88,dPYba,,adPYba,  ,adPPYYba, 8b,dPPYba,
+    88P'    "8a ""     `Y8 88P'   `"8a a8"    `Y88 88P'   "88"    "8a ""     `Y8 88P'   `"8a
+    88       88 ,adPPPPP88 88       88 8b       88 88      88      88 ,adPPPPP88 88       88
+    88       88 88,    ,88 88       88 "8a,   ,d88 88      88      88 88,    ,88 88       88
+    88       88 `"8bbdP"Y8 88       88  `"YbbdP"Y8 88      88      88 `"8bbdP"Y8 88       88
+                                        aa,    ,88
+                                         "Y8bbdP"
 
     LOGO
   end
@@ -88,8 +91,10 @@ module Display
     puts "\t\t You've won! Congratulations!"
   end
 
-  def display_loss
-    puts "\t\t You've Lost :( Try again!"
+  def display_loss(word)
+    display_hang(0)
+    display_letter(word)
+    puts "\n\t\t You've Lost :( Try again!\n\n"
   end
 
   def play_again
