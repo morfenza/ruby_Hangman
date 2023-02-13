@@ -58,12 +58,24 @@ class Game
   def play_match
     until @tries.zero?
       play_round
-      clear_console
       return display_victory if won?(@spaces, @word)
+
+      clear_console
     end
-    display_loss
+    display_loss(@word)
+  end
+
+  def new_game
+    display_start_game
+    option = gets.chomp.to_i
+    if option == 1
+      clear_console
+      play_match
+    else
+      return
+    end
   end
 end
 
 g = Game.new
-g.play_match
+g.new_game
