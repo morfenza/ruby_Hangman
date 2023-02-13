@@ -34,11 +34,11 @@ module Check
         if guesses.include?(letter)
           puts 'Please, write a letter that has not been written before'
           next
-        end 
+        end
         return letter
 
       elsif letter == 'save'
-        return 2
+        return letter
 
       end
 
