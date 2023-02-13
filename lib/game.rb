@@ -2,10 +2,12 @@
 
 require_relative 'modules/check'
 require_relative 'modules/stickman'
+require_relative 'modules/display'
 
 # Class defining the game
 class Game
   include Check
+  include Display
   include HangedPerson
 
   attr_reader :word, :spaces
@@ -14,6 +16,7 @@ class Game
     @word = pick_word
     @spaces = create_spaces(@word)
     @guesses = []
+    @tries = 6
   end
 
   def pick_word
@@ -36,24 +39,29 @@ class Game
     end
   end
 
-  def play_match
-    tries = 6
-    until tries.zero?
-      p @guesses
-      p @spaces
-      display_hang(tries)
-      p tries
-      letter = gets.chomp
-      if letter?(letter, @word)
-        insert_letter(letter)
-        won?(@spaces, @word)
-      else
-        @guesses << letter unless @guesses.include?(letter)
-        tries -= 1
-      end
-      Gem.win_platform? ? (system 'cls') : (system 'clear')
+  def player_guess
+    letter = gets.chomp
+    if letter?(letter, @word)
+      insert_letter(letter)
+    else
+      @guesses << letter unless @guesses.include?(letter)
+      @tries -= 1
     end
-    display_hang(tries)
+  end
+
+  def play_round
+    display_round(@tries, @spaces, @guesses)
+    display_round_options
+    player_guess
+  end
+
+  def play_match
+    until @tries.zero?
+      play_round
+      clear_console
+      return display_victory if won?(@spaces, @word)
+    end
+    display_loss
   end
 end
 
