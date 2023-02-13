@@ -40,7 +40,7 @@ class Game
   end
 
   def player_guess
-    letter = gets.chomp
+    letter = check_letter(@guesses)
     if letter?(letter, @word)
       insert_letter(letter)
     else
@@ -66,16 +66,16 @@ class Game
   end
 
   def new_game
-    display_start_game
-    option = gets.chomp.to_i
+    option = check_option
     if option == 1
       clear_console
       play_match
-    else
+    elsif option == 2
       return
     end
   end
-end
 
-g = Game.new
-g.new_game
+  def save_game; end
+
+  def load_game; end
+end
