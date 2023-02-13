@@ -3,16 +3,18 @@
 require_relative 'modules/check'
 require_relative 'modules/stickman'
 require_relative 'modules/display'
+require_relative 'modules/serialization'
 
 # Class defining the game
 class Game
   include Check
   include Display
   include HangedPerson
+  include Serialization
 
   attr_reader :word, :spaces
 
-  def initialize
+  def create_game
     @word = pick_word
     @spaces = create_spaces(@word)
     @guesses = []
@@ -41,6 +43,8 @@ class Game
 
   def player_guess
     letter = check_letter(@guesses)
+    return 'save' if letter == 'save'
+
     if letter?(letter, @word)
       insert_letter(letter)
     else
@@ -52,12 +56,15 @@ class Game
   def play_round
     display_round(@tries, @spaces, @guesses)
     display_round_options
-    player_guess
+    return unless player_guess == 'save'
+
+    save_game
+    'save'
   end
 
   def play_match
     until @tries.zero?
-      play_round
+      return if play_round == 'save'
       return display_victory if won?(@spaces, @word)
 
       clear_console
@@ -66,16 +73,17 @@ class Game
   end
 
   def new_game
-    option = check_option
-    if option == 1
+    loop do
+      puts 'Choose an option'
+      option = check_option
+
+      create_game if option == 1
+
+      next if option == 2 && (load_game == false)
+
       clear_console
       play_match
-    elsif option == 2
       return
     end
   end
-
-  def save_game; end
-
-  def load_game; end
 end
