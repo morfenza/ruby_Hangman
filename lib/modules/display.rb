@@ -1,14 +1,25 @@
 # frozen_string_literal: true
 
+require_relative 'stickman'
+
 # Module to display messages and game content
 module Display
+  include HangedPerson
+
   def display_start_game
     display_logo
     display_main_menu
     display_menu_options
   end
 
-  def display_spaces(spaces)
+  def display_round(tries, spaces, guesses)
+    display_hang(tries)
+    display_letter(spaces)
+    puts
+    display_letter(guesses)
+  end
+
+  def display_letter(spaces)
     spaces.each do |space|
       if space == ' '
         print '_ '
@@ -71,5 +82,21 @@ module Display
         save    - Save game
 
     OPTIONS
+  end
+
+  def display_victory
+    puts "\t\t You've won! Congratulations!"
+  end
+
+  def display_loss
+    puts "\t\t You've Lost :( Try again!"
+  end
+
+  def play_again
+    puts 'Play again? (y/n)'
+  end
+
+  def clear_console
+    Gem.win_platform? ? (system 'cls') : (system 'clear')
   end
 end
